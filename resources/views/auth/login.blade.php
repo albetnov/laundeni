@@ -40,13 +40,9 @@
             </div>
 
             <div class="d-flex justify-content-end mt-4">
-                @if (Route::has('password.request'))
-                    <a class="text-muted" href="{{ route('password.request') }}"
-                        style="margin-right: 15px; margin-top: 15px;">
-                        {{ __('Forgot your password?') }}
-                    </a>
-                @endif
-
+                <a style="margin-right:10px;" class="text-muted mt-2" href="{{ route('register') }}">
+                    {{ __('Need an account?') }}
+                </a>
                 <x-button class="ml-3">
                     {{ __('Log in') }}
                 </x-button>

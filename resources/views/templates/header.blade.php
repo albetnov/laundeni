@@ -8,13 +8,6 @@
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/fontawesome/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/animate.min.css') }}">
-    <style>
-        .card:hover {
-            animation: pulse;
-            animation-duration: 1s;
-        }
-
-    </style>
     <title>@yield('title')</title>
 </head>
 
