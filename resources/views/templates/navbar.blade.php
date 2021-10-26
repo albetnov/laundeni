@@ -17,6 +17,13 @@
                         </a>
                     </li>
                     <li
+                        class="nav-item {{ strpos(Route::currentRouteName(), 'admin.pengguna') === 0 ? 'active' : '' }}">
+                        <a class="nav-link {{ strpos(Route::currentRouteName(), 'admin.pengguna') === 0 ? 'active' : '' }}"
+                            {!! strpos(Route::currentRouteName(), 'admin.dashboard') === 0 ? 'aria-current="page"' : '' !!}>
+                            Data Pengguna
+                        </a>
+                    </li>
+                    <li
                         class="nav-item {{ strpos(Route::currentRouteName(), 'admin.pelanggan') === 0 ? 'active' : '' }}">
                         <a class="nav-link {{ strpos(Route::currentRouteName(), 'admin.pelanggan') === 0 ? 'active' : '' }}"
                             href="#" {!! strpos(Route::currentRouteName(), 'admin.pelanggan') === 0 ? 'aria-current="page"' : '' !!}>
@@ -32,25 +39,16 @@
                     <div class="nav-item">
                         <a class="nav-link" href="#">Transaksi</a>
                     </div>
+                    <div class="nav-item">
+                        <a class="nav-link" href="#">Laporan</a>
+                    </div>
                 @elseif(Auth::user()->role == 'owner')
                     <li class="nav-item active">
                         <a class="nav-link active" href="{{ route('owner.dashboard') }}">Home <span
                                 class="visually-hidden">(current)</span></a>
                     </li>
                     <div class="nav-item">
-                        <a class="nav-link" href="#">Data Pengguna</a>
-                    </div>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Pelanggan</a>
-                    </li>
-                    <div class="nav-item">
-                        <a class="nav-link" href="#">Outlet</a>
-                    </div>
-                    <div class="nav-item">
-                        <a class="nav-link" href="#">Paket</a>
-                    </div>
-                    <div class="nav-item">
-                        <a class="nav-link" href="#">Transaksi</a>
+                        <a class="nav-link" href="#">Laporan</a>
                     </div>
                 @elseif (Auth::user()->role == 'kasir')
                     <li class="nav-item active">

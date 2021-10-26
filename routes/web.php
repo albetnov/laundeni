@@ -1,7 +1,7 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,7 +20,8 @@ Route::get('/', function () {
 
 Route::group(['middleware' => ['auth']], function () {
     Route::group(['middleware' => ['cekrole:admin'], 'prefix' => 'admin', 'as' => 'admin.'], function () {
-        Route::view('dashboard', 'admin.dashboard')->name('dashboard');
+        Route::get('dashboard', [AdminController::class, 'index'])->name('dashboard');
+        Route::post('{user}/moduser', [AdminController::class, 'mod_curacc'])->name('modcuracc');
     });
     Route::group(['middleware' => ['cekrole:disabled'], 'prefix' => 'newuser', 'as' => 'newuser.'], function () {
         Route::view('dashboard', 'newuser.dashboard')->name('dashboard');
