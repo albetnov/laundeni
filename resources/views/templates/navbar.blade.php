@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-md navbar-light bg-light shadow p-2 mb-3 rounded">
     <div class="container">
-        <a class="navbar-brand" href="#">Laudeni</a>
+        <a class="navbar-brand" href="#">{{ env('APP_NAME') }}</a>
         <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse"
             data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false"
             aria-label="Toggle navigation">
@@ -19,7 +19,7 @@
                     <li
                         class="nav-item {{ strpos(Route::currentRouteName(), 'admin.pengguna') === 0 ? 'active' : '' }}">
                         <a class="nav-link {{ strpos(Route::currentRouteName(), 'admin.pengguna') === 0 ? 'active' : '' }}"
-                            {!! strpos(Route::currentRouteName(), 'admin.dashboard') === 0 ? 'aria-current="page"' : '' !!}>
+                            href="{{ route('admin.pengguna') }}" {!! strpos(Route::currentRouteName(), 'admin.pengguna') === 0 ? 'aria-current="page"' : '' !!}>
                             Data Pengguna
                         </a>
                     </li>

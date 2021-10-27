@@ -1,5 +1,5 @@
 @extends('templates.panel')
-@section('title', 'Dashboard | New User')
+@section('title', 'Dashboard')
 @section('content')
     <x-card>
         <x-slot name="header">

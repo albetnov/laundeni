@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Modules\ManageCurrentUser;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Modules\Pengguna;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,7 +23,11 @@ Route::get('/', function () {
 Route::group(['middleware' => ['auth']], function () {
     Route::group(['middleware' => ['cekrole:admin'], 'prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::get('dashboard', [AdminController::class, 'index'])->name('dashboard');
-        Route::post('{user}/moduser', [AdminController::class, 'mod_curacc'])->name('modcuracc');
+        Route::post('{user}/moduser', [ManageCurrentUser::class, 'mod_curacc'])->name('modcuracc');
+        Route::get('pengguna', [AdminController::class, 'pengguna'])->name('pengguna');
+        Route::resource('pengguna', Pengguna::class)->except('index', 'show')->parameters([
+            'pengguna' => 'user'
+        ]);
     });
     Route::group(['middleware' => ['cekrole:disabled'], 'prefix' => 'newuser', 'as' => 'newuser.'], function () {
         Route::view('dashboard', 'newuser.dashboard')->name('dashboard');

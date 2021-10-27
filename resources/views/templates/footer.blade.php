@@ -23,10 +23,12 @@
 </body>
 <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
 <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('assets/simple-datatables/simple-datatables.js') }}"></script>
 <script>
     $(".alert").delay(4000).slideUp(200, function() {
         $(this).alert('close');
     });
 </script>
+@stack('scripts')
 
 </html>

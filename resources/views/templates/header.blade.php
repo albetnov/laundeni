@@ -8,7 +8,9 @@
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/fontawesome/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/animate.min.css') }}">
-    <title>@yield('title')</title>
+    <link rel="stylesheet" href="{{ asset('assets/simple-datatables/style.css') }}">
+    @stack('styles')
+    <title>@yield('title') | {{ env('APP_NAME') }}</title>
 </head>
 
 <body>

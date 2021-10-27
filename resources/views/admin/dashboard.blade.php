@@ -1,9 +1,7 @@
 @extends('templates.panel')
-@section('title', 'Dashboard | Laundeni')
+@section('title', 'Dashboard')
 @section('content')
-    @if (session()->has('pesan'))
-        <div class="alert alert-{{ session('tipe') }}">{{ session('pesan') }}</div>
-    @endif
+    <x-alert></x-alert>
     <div class="row">
         <div class="col">
             <x-card>
