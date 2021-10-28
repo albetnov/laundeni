@@ -26,7 +26,7 @@
                     <li
                         class="nav-item {{ strpos(Route::currentRouteName(), 'admin.pelanggan') === 0 ? 'active' : '' }}">
                         <a class="nav-link {{ strpos(Route::currentRouteName(), 'admin.pelanggan') === 0 ? 'active' : '' }}"
-                            href="#" {!! strpos(Route::currentRouteName(), 'admin.pelanggan') === 0 ? 'aria-current="page"' : '' !!}>
+                            href="{{ route('admin.pelanggan.index') }}" {!! strpos(Route::currentRouteName(), 'admin.pelanggan') === 0 ? 'aria-current="page"' : '' !!}>
                             Pelanggan
                         </a>
                     </li>

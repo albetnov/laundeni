@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Outlet;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class Pengguna extends Controller
 {
@@ -114,5 +115,26 @@ class Pengguna extends Controller
             'pesan' => 'Data berhasil dihapus'
         ];
         return redirect()->route('admin.pengguna')->with($notif);
+    }
+
+    public function assign_role(Request $request, User $user)
+    {
+        $validator = Validator::make($request->all(), [
+            'role' => 'required'
+        ]);
+        if ($validator->fails()) {
+            $notif = [
+                'tipe' => 'danger',
+                'pesan' => 'Gagal memberikan role'
+            ];
+            return redirect()->back()->with($notif);
+        }
+        $user->role = $request->role;
+        $user->save();
+        $notif = [
+            'tipe' => 'success',
+            'pesan' => 'Role berhasil diberikan'
+        ];
+        return redirect()->back()->with($notif);
     }
 }

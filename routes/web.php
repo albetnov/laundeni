@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Modules\ManageCurrentUser;
+use App\Http\Controllers\Modules\Pelanggan;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Modules\Pengguna;
 
@@ -28,6 +29,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('pengguna', Pengguna::class)->except('index', 'show')->parameters([
             'pengguna' => 'user'
         ]);
+        Route::post('pengguna/{user}/role', [Pengguna::class, 'assign_role'])->name('pengguna.assign.role');
+        Route::resource('pelanggan', Pelanggan::class)->except('show')->parameters(['pelanggan' => 'member']);
     });
     Route::group(['middleware' => ['cekrole:disabled'], 'prefix' => 'newuser', 'as' => 'newuser.'], function () {
         Route::view('dashboard', 'newuser.dashboard')->name('dashboard');

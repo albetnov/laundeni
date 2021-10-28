@@ -36,7 +36,50 @@
                             @else
                                 <td>Tiada Outlet</td>
                             @endempty
-                            <td>{{ $pengguna->role }}</td>
+                            @if ($pengguna->role == 'disabled')
+                                <td>
+                                    <!-- Button trigger modal -->
+                                    <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
+                                        data-bs-target="#assign{{ $pengguna->id }}">
+                                        Assign Role
+                                    </button>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="assign{{ $pengguna->id }}" tabindex="-1" role="dialog"
+                                        aria-labelledby="modelTitleId" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">Assign Role, {{ $pengguna->name }}</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form method="POST" id="assignRole"
+                                                        action="{{ route('admin.pengguna.assign.role', $pengguna->id) }}">
+                                                        @csrf
+                                                        <div class="mb-2">
+                                                            <select class="form-select" name="role">
+                                                                <option value="kasir">Kasir</option>
+                                                                <option value="admin">Admin</option>
+                                                                <option value="owner">Owner</option>
+                                                            </select>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">Close</button>
+                                                    <button type="submit" form="assignRole"
+                                                        class="btn btn-primary">Save</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            @else
+                                <td>{{ $pengguna->role }}</td>
+                            @endif
                             <td>{{ $pengguna->created_at }}</td>
                             <td>{{ $pengguna->updated_at }}</td>
                             <td><button class="btn btn-sm btn-outline-primary"
@@ -50,8 +93,8 @@
                                 </button>
 
                                 <!-- Modal -->
-                                <div class="modal fade" id="deleteUser{{ $pengguna->id }}" tabindex="-1" role="dialog"
-                                    aria-labelledby="modelTitleId" aria-hidden="true">
+                                <div class="modal fade" id="deleteUser{{ $pengguna->id }}" tabindex="-1"
+                                    role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">

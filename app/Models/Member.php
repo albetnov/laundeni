@@ -9,4 +9,5 @@ class Member extends Model
 {
     use HasFactory;
     public $timestamps = false;
+    protected $fillable = ['nama', 'alamat', 'tlp', 'jenis_kelamin'];
 }
