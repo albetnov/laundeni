@@ -30,9 +30,13 @@
                             Pelanggan
                         </a>
                     </li>
-                    <div class="nav-item">
-                        <a class="nav-link" href="#">Outlet</a>
-                    </div>
+                    <li
+                        class="nav-item {{ strpos(Route::currentRouteName(), 'admin.outlet') === 0 ? 'active' : '' }}">
+                        <a class="nav-link {{ strpos(Route::currentRouteName(), 'admin.outlet') === 0 ? 'active' : '' }}"
+                            href="{{ route('admin.outlet') }}" {!! strpos(Route::currentRouteName(), 'admin.outlet') === 0 ? 'aria-current="page"' : '' !!}>
+                            Outlet
+                        </a>
+                    </li>
                     <div class="nav-item">
                         <a class="nav-link" href="#">Paket</a>
                     </div>

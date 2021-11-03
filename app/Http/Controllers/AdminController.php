@@ -28,4 +28,12 @@ class AdminController extends Controller
         ];
         return view('admin.pengguna.index', $data);
     }
+
+    public function outlet()
+    {
+        $data = [
+            'outlet' => Outlet::lazy()
+        ];
+        return view('admin.outlet.index', $data);
+    }
 }

@@ -95,16 +95,18 @@
                 </x-slot>
             </x-card>
         </div>
-        <div class="col">
-            <x-card>
-                <x-slot name="header">Transaksi Terbaru</x-slot>
-                <p>
-                    Nama: {{ $transaksi_terbaru->user->name }}<br>
-                    Kode Invoice: {{ $transaksi_terbaru->kode_invoice }}<br>
-                    Status Pembayaran: {{ $transaksi_terbaru->dibayar }}<br>
-                    Batas Waktu: {{ $transaksi_terbaru->batas_waktu }}
-                </p>
-            </x-card>
-        </div>
+        @empty(!$transaksi_terbaru)
+            <div class="col">
+                <x-card>
+                    <x-slot name="header">Transaksi Terbaru</x-slot>
+                    <p>
+                        Nama: {{ $transaksi_terbaru->user->name }}<br>
+                        Kode Invoice: {{ $transaksi_terbaru->kode_invoice }}<br>
+                        Status Pembayaran: {{ $transaksi_terbaru->dibayar }}<br>
+                        Batas Waktu: {{ $transaksi_terbaru->batas_waktu }}
+                    </p>
+                </x-card>
+            </div>
+        @endempty
     </div>
 @endsection
