@@ -15,7 +15,7 @@ class OutletController extends Controller
      */
     public function create()
     {
-        return view('admin.outlet.index');
+        return view('admin.outlet.tambah');
     }
 
     /**
@@ -26,7 +26,19 @@ class OutletController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate(
+            [
+                'nama' => 'required|string|min:3|max:128',
+                'alamat' => 'required|string|min:3|max:255',
+                'tlp' => 'required|max:15'
+            ]
+        );
+        Outlet::create($data);
+        $notif = [
+            'tipe' => 'success',
+            'pesan' => 'Data berhasil ditambahkan'
+        ];
+        return redirect()->route('admin.outlet')->with($notif);
     }
 
     /**
@@ -37,7 +49,8 @@ class OutletController extends Controller
      */
     public function edit(Outlet $outlet)
     {
-        //
+        abort_if($outlet->nama === 'super', 404);
+        return view('admin.outlet.edit', compact('outlet'));
     }
 
     /**
@@ -49,7 +62,18 @@ class OutletController extends Controller
      */
     public function update(Request $request, Outlet $outlet)
     {
-        //
+        abort_if($outlet->nama === 'super', 404);
+        $data = $request->validate([
+            'nama' => 'required|string|min:3|max:128',
+            'alamat' => 'required|string|min:3|max:255',
+            'tlp' => 'required|max:15'
+        ]);
+        Outlet::find($outlet->id)->update($data);
+        $notif = [
+            'tipe' => 'success',
+            'pesan' => 'Data berhasil diperbarui'
+        ];
+        return redirect()->route('admin.outlet')->with($notif);
     }
 
     /**
@@ -60,6 +84,12 @@ class OutletController extends Controller
      */
     public function destroy(Outlet $outlet)
     {
-        //
+        abort_if($outlet->nama === 'super', 404);
+        Outlet::find($outlet->id)->delete();
+        $notif = [
+            'tipe' => 'success',
+            'pesan' => 'Data berhasil dihapus'
+        ];
+        return redirect()->back()->with($notif);
     }
 }

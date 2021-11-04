@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+// use Illuminate\Http\Request;
 use App\Models\Member;
 use App\Models\Outlet;
 use App\Models\Transaksi;
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
+use App\Models\Paket;
 
 class AdminController extends Controller
 {
@@ -35,5 +35,13 @@ class AdminController extends Controller
             'outlet' => Outlet::lazy()
         ];
         return view('admin.outlet.index', $data);
+    }
+
+    public function paket()
+    {
+        $data = [
+            'paket' => Paket::with('outlet')->lazy()
+        ];
+        return view('admin.paket.index', $data);
     }
 }

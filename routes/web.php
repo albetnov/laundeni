@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Modules\ManageCurrentUser;
 use App\Http\Controllers\Modules\OutletController;
+use App\Http\Controllers\Modules\PaketController;
 use App\Http\Controllers\Modules\Pelanggan;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Modules\Pengguna;
@@ -31,6 +32,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('pelanggan', Pelanggan::class)->except('show')->parameter('pelanggan', 'member');
         Route::get('outlet', [AdminController::class, 'outlet'])->name('outlet');
         Route::resource('outlet', OutletController::class)->except('show', 'index');
+        Route::get('paket', [AdminController::class, 'paket'])->name('paket');
+        Route::resource('paket', PaketController::class)->except('index', 'show');
     });
     Route::group(['middleware' => ['cekrole:disabled'], 'prefix' => 'newuser', 'as' => 'newuser.'], function () {
         Route::view('dashboard', 'newuser.dashboard')->name('dashboard');

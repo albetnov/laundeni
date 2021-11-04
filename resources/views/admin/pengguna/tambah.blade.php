@@ -30,8 +30,8 @@
                         </select>
                     </div>
                     <div class="mb-2">
-                        <label for="nama">Nama</label>
-                        <input type="text" id="nama" value="{{ old('nama') }}" class="form-control" name="name">
+                        <label for="name">Nama</label>
+                        <input type="text" id="name" value="{{ old('name') }}" class="form-control" name="name">
                     </div>
                     <div class="mb-2">
                         <label for="username">Username</label>
