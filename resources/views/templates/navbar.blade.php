@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-md navbar-light bg-light shadow p-2 mb-3 rounded">
     <div class="container">
-        <a class="navbar-brand" href="#">{{ env('APP_NAME') }}</a>
+        <a class="navbar-brand" href="#">{{ config('app.name') }}</a>
         <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse"
             data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false"
             aria-label="Toggle navigation">

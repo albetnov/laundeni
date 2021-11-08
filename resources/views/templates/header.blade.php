@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/animate.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/simple-datatables/style.css') }}">
     @stack('styles')
-    <title>@yield('title') | {{ env('APP_NAME') }}</title>
+    <title>@yield('title') | {{ config('app.name') }}</title>
 </head>
 
 <body>

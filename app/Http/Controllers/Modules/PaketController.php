@@ -55,7 +55,8 @@ class PaketController extends Controller
      */
     public function edit(Paket $paket)
     {
-        //
+        $outlet = Outlet::lazy();
+        return view('admin.paket.edit', compact('paket', 'outlet'));
     }
 
     /**
@@ -67,7 +68,20 @@ class PaketController extends Controller
      */
     public function update(Request $request, Paket $paket)
     {
-        //
+        $data = $request->validate(
+            [
+                'id_outlet' => 'required|integer',
+                'jenis' => 'required',
+                'nama_paket' => 'required|min:3|max:100',
+                'harga' => 'required|integer'
+            ]
+        );
+        Paket::find($paket->id)->update($data);
+        $notif = [
+            'tipe' => 'success',
+            'pesan' => 'Data berhasil diperbarui'
+        ];
+        return redirect()->route('admin.paket')->with($notif);
     }
 
     /**
