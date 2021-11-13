@@ -91,7 +91,7 @@ class Pelanggan extends Controller
             'jenis_kelamin' => $request->jenis_kelamin,
             'tlp' => $request->nohp
         ];
-        Member::find($member->id)->update($data);
+        $member->update($data);
         $notif = [
             'tipe' => 'success',
             'pesan' => 'Data berhasil diperbarui'
@@ -107,7 +107,7 @@ class Pelanggan extends Controller
      */
     public function destroy(Member $member)
     {
-        Member::find($member->id)->delete();
+        $member->delete();
         $notif = [
             'tipe' => 'success',
             'pesan' => 'Data berhasil dihapus'

@@ -18,15 +18,16 @@ class CreateTransaksisTable extends Migration
             $table->foreignId('id_outlet')->constrained('outlets')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('id_member')->constrained('members')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('id_user')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
-            $table->dateTime('tgl');
-            $table->datetime('batas_waktu');
-            $table->dateTime('tgl_bayar');
-            $table->unsignedBigInteger('biaya_tambahan');
-            $table->unsignedBigInteger('diskon');
-            $table->unsignedBigInteger('pajak');
+            $table->date('tgl');
+            $table->date('batas_waktu')->nullable();
+            $table->date('tgl_bayar')->nullable();
+            $table->unsignedBigInteger('biaya_tambahan')->nullable();
+            $table->unsignedBigInteger('diskon')->nullable();
+            $table->unsignedBigInteger('pajak')->nullable();
             $table->enum('status', ['baru', 'proses', 'selesai', 'diambil']);
             $table->enum('dibayar', ['dibayar', 'belum_dibayar']);
-            $table->string('kode_invoice', 100);
+            $table->timestamp('created_at');
+            $table->string('kode_invoice', 100)->unique();
         });
     }
 

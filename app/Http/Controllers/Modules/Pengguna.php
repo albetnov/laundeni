@@ -93,7 +93,7 @@ class Pengguna extends Controller
         if (!empty($request->password)) {
             $data['password']  = bcrypt($request->password);
         }
-        User::find($user->id)->update($data);
+        $user->update($data);
         $notif = [
             'tipe' => 'success',
             'pesan' => 'Data berhasil diperbarui'
@@ -109,7 +109,7 @@ class Pengguna extends Controller
      */
     public function destroy(User $user)
     {
-        User::find($user->id)->delete();
+        $user->delete();
         $notif = [
             'tipe' => 'success',
             'pesan' => 'Data berhasil dihapus'

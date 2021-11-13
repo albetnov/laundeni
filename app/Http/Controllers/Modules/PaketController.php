@@ -76,7 +76,7 @@ class PaketController extends Controller
                 'harga' => 'required|integer'
             ]
         );
-        Paket::find($paket->id)->update($data);
+        $paket->update($data);
         $notif = [
             'tipe' => 'success',
             'pesan' => 'Data berhasil diperbarui'
@@ -92,6 +92,11 @@ class PaketController extends Controller
      */
     public function destroy(Paket $paket)
     {
-        //
+        $paket->delete();
+        $notif = [
+            'tipe' => 'success',
+            'pesan' => 'Data berhasil dihapus'
+        ];
+        return redirect()->back()->with($notif);
     }
 }

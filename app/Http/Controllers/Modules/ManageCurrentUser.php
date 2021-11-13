@@ -30,7 +30,7 @@ class ManageCurrentUser extends Controller
             ];
         }
         $request->validate($rules);
-        User::where('id', $user->id)->update($data);
+        $user->update($data);
         $notif = [
             'tipe' => 'success',
             'pesan' => 'Data berhasil dimofikasi'

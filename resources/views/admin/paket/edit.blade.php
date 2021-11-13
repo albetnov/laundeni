@@ -7,6 +7,7 @@
         </x-slot>
         <form method="POST" id="add_paket" action="{{ route('admin.paket.update', $paket->id) }}">
             @csrf
+            @method('PUT')
             @if ($errors->any())
                 <div class="alert alert-danger">
                     Validasi gagal!

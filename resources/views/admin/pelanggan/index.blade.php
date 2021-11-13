@@ -4,7 +4,7 @@
     <x-alert></x-alert>
     <x-card>
         <x-slot name="header">
-            Daftar Pengguna
+            Daftar Pelanggan
         </x-slot>
         <div class="d-flex justify-content-end">
             <button class="btn btn-sm btn-primary" onclick="location.href='{{ route('admin.pelanggan.create') }}'"><i

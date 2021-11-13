@@ -44,9 +44,13 @@
                             Paket
                         </a>
                     </li>
-                    <div class="nav-item">
-                        <a class="nav-link" href="#">Transaksi</a>
-                    </div>
+                    <li
+                        class="nav-item {{ strpos(Route::currentRouteName(), 'admin.transaksi.index') === 0 ? 'active' : '' }}">
+                        <a class="nav-link {{ strpos(Route::currentRouteName(), 'admin.transaksi.index') === 0 ? 'active' : '' }}"
+                            href="{{ route('admin.transaksi.index') }}" {!! strpos(Route::currentRouteName(), 'admin.transaksi.index') === 0 ? 'aria-current="page"' : '' !!}>
+                            Transaksi
+                        </a>
+                    </li>
                     <div class="nav-item">
                         <a class="nav-link" href="#">Laporan</a>
                     </div>

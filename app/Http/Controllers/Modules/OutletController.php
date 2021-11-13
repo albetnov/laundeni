@@ -68,7 +68,7 @@ class OutletController extends Controller
             'alamat' => 'required|string|min:3|max:255',
             'tlp' => 'required|max:15'
         ]);
-        Outlet::find($outlet->id)->update($data);
+        $outlet->update($data);
         $notif = [
             'tipe' => 'success',
             'pesan' => 'Data berhasil diperbarui'
@@ -85,7 +85,7 @@ class OutletController extends Controller
     public function destroy(Outlet $outlet)
     {
         abort_if($outlet->nama === 'super', 404);
-        Outlet::find($outlet->id)->delete();
+        $outlet->delete();
         $notif = [
             'tipe' => 'success',
             'pesan' => 'Data berhasil dihapus'

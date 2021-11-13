@@ -7,6 +7,7 @@ use App\Http\Controllers\Modules\PaketController;
 use App\Http\Controllers\Modules\Pelanggan;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Modules\Pengguna;
+use App\Http\Controllers\Modules\TransaksiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,6 +35,9 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('outlet', OutletController::class)->except('show', 'index');
         Route::get('paket', [AdminController::class, 'paket'])->name('paket');
         Route::resource('paket', PaketController::class)->except('index', 'show');
+        Route::post('transaksi/{transaksi}/paid', [TransaksiController::class, 'paid'])->name('transaksi.paid');
+        Route::post('transaksi/{transaksi}/selesai', [TransaksiController::class, 'selesai'])->name('transaksi.selesai');
+        Route::resource('transaksi', TransaksiController::class);
     });
     Route::group(['middleware' => ['cekrole:disabled'], 'prefix' => 'newuser', 'as' => 'newuser.'], function () {
         Route::view('dashboard', 'newuser.dashboard')->name('dashboard');
