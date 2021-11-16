@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Modules\LaporanController;
 use App\Http\Controllers\Modules\ManageCurrentUser;
 use App\Http\Controllers\Modules\OutletController;
 use App\Http\Controllers\Modules\PaketController;
@@ -38,6 +39,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('transaksi/{transaksi}/paid', [TransaksiController::class, 'paid'])->name('transaksi.paid');
         Route::post('transaksi/{transaksi}/selesai', [TransaksiController::class, 'selesai'])->name('transaksi.selesai');
         Route::resource('transaksi', TransaksiController::class);
+        Route::get('/laporan', [LaporanController::class, 'index']);
     });
     Route::group(['middleware' => ['cekrole:disabled'], 'prefix' => 'newuser', 'as' => 'newuser.'], function () {
         Route::view('dashboard', 'newuser.dashboard')->name('dashboard');

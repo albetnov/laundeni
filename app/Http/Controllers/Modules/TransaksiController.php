@@ -19,7 +19,7 @@ class TransaksiController extends Controller
     private function getTransaksi($optional = null, $transaksi = null)
     {
         if (!is_null($optional) && $optional == 'detail') {
-            return DetailTransaksi::with('paket')->where('id_transaksi', $transaksi->id)->first();
+            return DetailTransaksi::with('paket')->firstWhere('id_transaksi', $transaksi->id);
         }
         if (Auth::user()->role === 'kasir') {
             return Transaksi::with('user', 'member', 'outlet')->where('id_outlet', Auth::user()->id_outlet)->lazy();
@@ -171,6 +171,8 @@ class TransaksiController extends Controller
             'outlet' => Outlet::get(['nama', 'id']),
             'member' => Member::get(['nama', 'id']),
             'users' => User::get(['name', 'id']),
+            'paket' => Paket::get(['nama_paket', 'id']),
+            'detail' => $this->getTransaksi('detail', $transaksi),
             'transaksi' => $transaksi
         ];
         return view('admin.transaksi.edit', $data);
@@ -197,13 +199,27 @@ class TransaksiController extends Controller
             'pajak' => 'integer|nullable',
             'status' => 'required',
             'dibayar' => 'required',
-            'kode_invoice' => 'required|unique:transaksis,kode_invoice,' . $transaksi->id
+            'kode_invoice' => 'required|unique:transaksis,kode_invoice,' . $transaksi->id,
+            'id_paket' => 'required|integer',
+            'qty' => 'required|integer',
+            'keterangan' => 'required|max:512'
         ]);
-        $transaksi->update($data);
-        $notif = [
-            'pesan' => 'Data berhasil diperbarui.',
-            'tipe' => 'success'
-        ];
+        $attempt = DB::transaction(function () use ($data, $transaksi) {
+            $transaksi->update(Arr::except($data, ['id_paket', 'qty', 'keterangan']));
+            DetailTransaksi::find('id_transaksi', $transaksi->id)->update(Arr::only($data, ['id_paket', 'qty', 'keterangan', 'id_transaksi']));
+            return True;
+        });
+        if ($attempt) {
+            $notif = [
+                'pesan' => 'Data berhasil diperbarui.',
+                'tipe' => 'success'
+            ];
+        } else {
+            $notif = [
+                'pesan' => 'Data gagal diperbarui. Sihlakan ulangi lagi.',
+                'tipe' => 'danger'
+            ];
+        }
         return redirect()->route('admin.transaksi.index')->with($notif);
     }
 
@@ -215,11 +231,22 @@ class TransaksiController extends Controller
      */
     public function destroy(Transaksi $transaksi)
     {
-        $transaksi->delete();
-        $notif = [
-            'pesan' => 'Data berhasil dihapus.',
-            'tipe' => 'success'
-        ];
+        $attempt = DB::transaction(function () use ($transaksi) {
+            DetailTransaksi::find('id_transaksi', $transaksi->id)->delete();
+            $transaksi->delete();
+            return True;
+        });
+        if ($attempt) {
+            $notif = [
+                'pesan' => 'Data berhasil dihapus.',
+                'tipe' => 'success'
+            ];
+        } else {
+            $notif = [
+                'pesan' => 'Data gagal dihapus.',
+                'tipe' => 'danger'
+            ];
+        }
         return redirect()->back()->with($notif);
     }
 }

@@ -66,7 +66,7 @@
                                 aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            Yakin hapus data, {{ $transaksi->nama }}?
+                            Yakin hapus data, {{ $transaksi->kode_invoice }}?
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tidak</button>

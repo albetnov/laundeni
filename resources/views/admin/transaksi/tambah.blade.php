@@ -111,32 +111,32 @@
                             value="{{ old('kode_invoice', Str::random(20)) }}">
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col">
-                        <div class="mb-2">
-                            <label for="paket">Jenis Paket:</label>
-                            <select name="id_paket" id="paket" class="form-select">
-                                @foreach ($paket as $paket)
-                                    <option value="{{ $paket->id }}"
-                                        {{ old('id_paket') == $paket->id ? 'selected' : '' }}>{{ $paket->nama_paket }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="mb-2">
-                            <label for="qty">Quantitas:</label>
-                            <input type="number" class="form-control" value="{{ old('number') }}" name="qty" id="qty">
-                        </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="mb-2">
+                        <label for="paket">Jenis Paket:</label>
+                        <select name="id_paket" id="paket" class="form-select">
+                            @foreach ($paket as $paket)
+                                <option value="{{ $paket->id }}"
+                                    {{ old('id_paket') == $paket->id ? 'selected' : '' }}>{{ $paket->nama_paket }}
+                                </option>
+                            @endforeach
+                        </select>
                     </div>
-                    <div class="col">
-                        <div class="mb-2">
-                            <label for="keterangan">Keterangan:</label>
-                            <textarea name="keterangan" class="form-control" id="keterangan" cols="10"
-                                rows="10">{{ old('keterangan') }}</textarea>
-                        </div>
+                    <div class="mb-2">
+                        <label for="qty">Quantitas:</label>
+                        <input type="number" class="form-control" value="{{ old('number') }}" name="qty" id="qty">
                     </div>
-
                 </div>
+                <div class="col">
+                    <div class="mb-2">
+                        <label for="keterangan">Keterangan:</label>
+                        <textarea name="keterangan" class="form-control" id="keterangan" cols="10"
+                            rows="10">{{ old('keterangan') }}</textarea>
+                    </div>
+                </div>
+
             </div>
         </form>
         <x-slot name="footer">
