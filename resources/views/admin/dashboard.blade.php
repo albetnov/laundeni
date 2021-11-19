@@ -18,7 +18,7 @@
         <div class="col">
             <x-card>
                 <x-slot name="header">
-                    Data Laundeni
+                    Data {{ config('app.name') }}
                 </x-slot>
                 Jumlah Pelanggan: {{ $j_pelanggan }} <br>
                 Jumlah Outlet: {{ $j_outlet }}
