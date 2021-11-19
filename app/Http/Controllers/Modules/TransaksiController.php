@@ -31,9 +31,12 @@ class TransaksiController extends Controller
     private function ValidateUser(Transaksi $transaksi)
     {
         $transaksi = Transaksi::with('user', 'member', 'outlet')->where('id', $transaksi->id)->first();
-        if (Auth::user()->role === 'kasir' && $transaksi->id_user != Auth::user()->id) {
-            abort(404);
-        }
+        abort_if(Auth::user()->role === 'kasir' && $transaksi->id_user != Auth::user()->id, 403);
+    }
+
+    private function getRole()
+    {
+        return Auth::user()->role;
     }
     /** 
      * Display a listing of the resource.
@@ -45,7 +48,7 @@ class TransaksiController extends Controller
         $data = [
             'transaksi' => $this->getTransaksi()
         ];
-        return view('admin.transaksi.index', $data);
+        return view($this->getRole() . '.transaksi.index', $data);
     }
 
     /**
@@ -61,7 +64,7 @@ class TransaksiController extends Controller
             'users' => User::get(['name', 'id']),
             'paket' => Paket::get(['nama_paket', 'id'])
         ];
-        return view('admin.transaksi.tambah', $data);
+        return view($this->getRole() . '.transaksi.tambah', $data);
     }
 
     /**
@@ -106,7 +109,7 @@ class TransaksiController extends Controller
                 'tipe' => 'danger'
             ];
         }
-        return redirect()->route('admin.transaksi.index')->with($notif);
+        return redirect()->route($this->getRole() . '.transaksi.index')->with($notif);
     }
 
     /**
@@ -155,7 +158,7 @@ class TransaksiController extends Controller
     {
         $this->ValidateUser($transaksi);
         $detail = $this->getTransaksi($optional = 'detail', $transaksi);
-        return view('admin.transaksi.show', compact('transaksi', 'detail'));
+        return view($this->getRole() . '.transaksi.show', compact('transaksi', 'detail'));
     }
 
     /**
@@ -175,7 +178,7 @@ class TransaksiController extends Controller
             'detail' => $this->getTransaksi('detail', $transaksi),
             'transaksi' => $transaksi
         ];
-        return view('admin.transaksi.edit', $data);
+        return view($this->getRole() . '.transaksi.edit', $data);
     }
 
     /**
@@ -206,7 +209,7 @@ class TransaksiController extends Controller
         ]);
         $attempt = DB::transaction(function () use ($data, $transaksi) {
             $transaksi->update(Arr::except($data, ['id_paket', 'qty', 'keterangan']));
-            DetailTransaksi::find('id_transaksi', $transaksi->id)->update(Arr::only($data, ['id_paket', 'qty', 'keterangan', 'id_transaksi']));
+            DetailTransaksi::where('id_transaksi', $transaksi->id)->update(Arr::only($data, ['id_paket', 'qty', 'keterangan', 'id_transaksi']));
             return True;
         });
         if ($attempt) {
@@ -220,7 +223,7 @@ class TransaksiController extends Controller
                 'tipe' => 'danger'
             ];
         }
-        return redirect()->route('admin.transaksi.index')->with($notif);
+        return redirect()->route($this->getRole() . '.transaksi.index')->with($notif);
     }
 
     /**
@@ -232,7 +235,7 @@ class TransaksiController extends Controller
     public function destroy(Transaksi $transaksi)
     {
         $attempt = DB::transaction(function () use ($transaksi) {
-            DetailTransaksi::find('id_transaksi', $transaksi->id)->delete();
+            DetailTransaksi::where('id_transaksi', $transaksi->id)->delete();
             $transaksi->delete();
             return True;
         });

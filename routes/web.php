@@ -39,15 +39,22 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('transaksi/{transaksi}/paid', [TransaksiController::class, 'paid'])->name('transaksi.paid');
         Route::post('transaksi/{transaksi}/selesai', [TransaksiController::class, 'selesai'])->name('transaksi.selesai');
         Route::resource('transaksi', TransaksiController::class);
-        Route::get('/laporan', [LaporanController::class, 'index']);
+        Route::get('laporan', [LaporanController::class, 'index'])->name('laporan');
     });
     Route::group(['middleware' => ['cekrole:disabled'], 'prefix' => 'newuser', 'as' => 'newuser.'], function () {
         Route::view('dashboard', 'newuser.dashboard')->name('dashboard');
     });
     Route::group(['middleware' => ['cekrole:kasir'], 'prefix' => 'kasir', 'as' => 'kasir.'], function () {
         Route::view('dashboard', 'kasir.dashboard')->name('dashboard');
+        Route::post('{user}/moduser', [ManageCurrentUser::class, 'mod_curacc'])->name('modcuracc');
+        Route::resource('pelanggan', Pelanggan::class)->except('show')->parameter('pelanggan', 'member');
+        Route::post('transaksi/{transaksi}/paid', [TransaksiController::class, 'paid'])->name('transaksi.paid');
+        Route::post('transaksi/{transaksi}/selesai', [TransaksiController::class, 'selesai'])->name('transaksi.selesai');
+        Route::resource('transaksi', TransaksiController::class);
     });
     Route::group(['middleware' => ['cekrole:owner'], 'prefix' => 'owner', 'as' => 'owner.'], function () {
-        Route::view('dashboard', 'admin.dashboard')->name('dashboard');
+        Route::view('dashboard', 'owner.dashboard')->name('dashboard');
+        Route::post('{user}/moduser', [ManageCurrentUser::class, 'mod_curacc'])->name('modcuracc');
+        Route::get('laporan', [LaporanController::class, 'index'])->name('laporan');
     });
 });

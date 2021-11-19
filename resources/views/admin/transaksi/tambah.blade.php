@@ -126,7 +126,7 @@
                     </div>
                     <div class="mb-2">
                         <label for="qty">Quantitas:</label>
-                        <input type="number" class="form-control" value="{{ old('number') }}" name="qty" id="qty">
+                        <input type="number" class="form-control" value="{{ old('qty') }}" name="qty" id="qty">
                     </div>
                 </div>
                 <div class="col">

@@ -5,7 +5,7 @@
         <x-slot name="header">
             Edit Data Transaksi
         </x-slot>
-        <form method="POST" id="update_transaksi" action="{{ route('admin.transaksi.update', $transaksi->id) }}">
+        <form method="POST" id="update_transaksi" action="{{ route('kasir.transaksi.update', $transaksi->id) }}">
             @csrf
             @method('PUT')
             @if ($errors->any())
@@ -154,7 +154,7 @@
 
         </form>
         <x-slot name="footer">
-            <button class="btn btn-secondary btn-sm" onclick="location.href='{{ route('admin.transaksi.index') }}'"><i
+            <button class="btn btn-secondary btn-sm" onclick="location.href='{{ route('kasir.transaksi.index') }}'"><i
                     class="fas fa-arrow-left"></i> Kembali</button>
             <button class="btn btn-primary btn-sm" type="submit" form="update_transaksi"><i class="fas fa-paper-plane"></i>
                 Kirim</button>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Modules;
 
 use App\Http\Controllers\Controller;
 use App\Models\Member;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class Pelanggan extends Controller
@@ -13,12 +14,17 @@ class Pelanggan extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    private function getRole()
+    {
+        return Auth::user()->role;
+    }
     public function index()
     {
         $data = [
             'member' => Member::lazy()
         ];
-        return view('admin.pelanggan.index', $data);
+        return view($this->getRole() . '.pelanggan.index', $data);
     }
 
     /**
@@ -28,7 +34,7 @@ class Pelanggan extends Controller
      */
     public function create()
     {
-        return view('admin.pelanggan.tambah');
+        return view($this->getRole() . '.pelanggan.tambah');
     }
 
     /**
@@ -56,7 +62,7 @@ class Pelanggan extends Controller
             'tipe' => 'success',
             'pesan' => 'Data berhasil ditambahkan'
         ];
-        return redirect()->route('admin.pelanggan.index')->with($notif);
+        return redirect()->route($this->getRole() . '.pelanggan.index')->with($notif);
     }
 
     /**
@@ -67,7 +73,7 @@ class Pelanggan extends Controller
      */
     public function edit(Member $member)
     {
-        return view('admin.pelanggan.edit', compact('member'));
+        return view($this->getRole() . '.pelanggan.edit', compact('member'));
     }
 
     /**
@@ -96,7 +102,7 @@ class Pelanggan extends Controller
             'tipe' => 'success',
             'pesan' => 'Data berhasil diperbarui'
         ];
-        return redirect()->route('admin.pelanggan.index')->with($notif);
+        return redirect()->route($this->getRole() . '.pelanggan.index')->with($notif);
     }
 
     /**

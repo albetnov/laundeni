@@ -22,7 +22,8 @@
                 </x-slot>
                 Jumlah Pelanggan: {{ $j_pelanggan }} <br>
                 Jumlah Outlet: {{ $j_outlet }}
-                <x-slot name="footer"><button class="btn btn-sm btn-primary"><i class="fas fa-info-circle"></i> Lihat
+                <x-slot name="footer"><button class="btn btn-sm btn-primary"
+                        onclick="location.href='{{ route('admin.laporan') }}'"><i class="fas fa-info-circle"></i> Lihat
                         selengkapnya...</button></x-slot>
             </x-card>
         </div>
@@ -77,10 +78,12 @@
                                     @csrf
                                     <input type="hidden" name="mod" value="chpass">
                                     <div class="mb-2">
-                                        <input name="newpass" placeholder="New Password..." class="form-control">
+                                        <input name="newpass" type="password" placeholder="New Password..."
+                                            class="form-control">
                                     </div>
                                     <div class="mb-2">
-                                        <input name="conpass" placeholder="Confirm New Password..." class="form-control">
+                                        <input name="conpass" type="password" placeholder="Confirm New Password..."
+                                            class="form-control">
                                     </div>
                             </div>
                             <div class="modal-footer">

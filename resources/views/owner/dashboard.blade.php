@@ -29,7 +29,7 @@
                     @endif
                     Manage Akun
                 </x-slot>
-                <form method="POST" id="modcuracc" action="{{ route('kasir.modcuracc', Auth::user()->id) }}">
+                <form method="POST" id="modcuracc" action="{{ route('owner.modcuracc', Auth::user()->id) }}">
                     @csrf
                     <input type="hidden" name="mod" value="curacc">
                     <div class="form-group mb-1">
@@ -61,7 +61,7 @@
                                 </div>
                                 <div class="modal-body">
                                     <form method="POST" id="chpass"
-                                        action="{{ route('kasir.modcuracc', Auth::user()->id) }}">
+                                        action="{{ route('owner.modcuracc', Auth::user()->id) }}">
                                         @csrf
                                         <input type="hidden" name="mod" value="chpass">
                                         <div class="mb-2">

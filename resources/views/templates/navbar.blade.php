@@ -24,9 +24,9 @@
                         </a>
                     </li>
                     <li
-                        class="nav-item {{ strpos(Route::currentRouteName(), 'admin.pelanggan') === 0 ? 'active' : '' }}">
-                        <a class="nav-link {{ strpos(Route::currentRouteName(), 'admin.pelanggan') === 0 ? 'active' : '' }}"
-                            href="{{ route('admin.pelanggan.index') }}" {!! strpos(Route::currentRouteName(), 'admin.pelanggan') === 0 ? 'aria-current="page"' : '' !!}>
+                        class="nav-item {{ strpos(Route::currentRouteName(), 'admin.pelanggan.index') === 0 ? 'active' : '' }}">
+                        <a class="nav-link {{ strpos(Route::currentRouteName(), 'admin.pelanggan.index') === 0 ? 'active' : '' }}"
+                            href="{{ route('admin.pelanggan.index') }}" {!! strpos(Route::currentRouteName(), 'admin.pelanggan.index') === 0 ? 'aria-current="page"' : '' !!}>
                             Pelanggan
                         </a>
                     </li>
@@ -51,28 +51,47 @@
                             Transaksi
                         </a>
                     </li>
-                    <div class="nav-item">
-                        <a class="nav-link" href="#">Laporan</a>
-                    </div>
+                    <li
+                        class="nav-item {{ strpos(Route::currentRouteName(), 'admin.laporan') === 0 ? 'active' : '' }}">
+                        <a class="nav-link {{ strpos(Route::currentRouteName(), 'admin.laporan') === 0 ? 'active' : '' }}"
+                            href="{{ route('admin.laporan') }}" {!! strpos(Route::currentRouteName(), 'admin.laporan') === 0 ? 'aria-current="page"' : '' !!}>
+                            Laporan
+                        </a>
+                    </li>
                 @elseif(Auth::user()->role == 'owner')
                     <li class="nav-item active">
                         <a class="nav-link active" href="{{ route('owner.dashboard') }}">Home <span
                                 class="visually-hidden">(current)</span></a>
                     </li>
-                    <div class="nav-item">
-                        <a class="nav-link" href="#">Laporan</a>
-                    </div>
+                    <li
+                        class="nav-item {{ strpos(Route::currentRouteName(), 'owner.laporan') === 0 ? 'active' : '' }}">
+                        <a class="nav-link {{ strpos(Route::currentRouteName(), 'owner.laporan') === 0 ? 'active' : '' }}"
+                            href="{{ route('owner.laporan') }}" {!! strpos(Route::currentRouteName(), 'owner.laporan') === 0 ? 'aria-current="page"' : '' !!}>
+                            Laporan
+                        </a>
+                    </li>
                 @elseif (Auth::user()->role == 'kasir')
-                    <li class="nav-item active">
-                        <a class="nav-link active" href="{{ route('kasir.dashboard') }}">Home <span
-                                class="visually-hidden">(current)</span></a>
+                    <li
+                        class="nav-item {{ strpos(Route::currentRouteName(), 'kasir.dashboard') === 0 ? 'active' : '' }}">
+                        <a class="nav-link {{ strpos(Route::currentRouteName(), 'kasir.dashboard') === 0 ? 'active' : '' }}"
+                            href="{{ route('kasir.dashboard') }}" {!! strpos(Route::currentRouteName(), 'kasir.dashboard') === 0 ? 'aria-current="page"' : '' !!}>
+                            Home
+                        </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Pelanggan</a>
+                    <li
+                        class="nav-item {{ strpos(Route::currentRouteName(), 'kasir.pelanggan.index') === 0 ? 'active' : '' }}">
+                        <a class="nav-link {{ strpos(Route::currentRouteName(), 'kasir.pelanggan.index') === 0 ? 'active' : '' }}"
+                            href="{{ route('kasir.pelanggan.index') }}" {!! strpos(Route::currentRouteName(), 'kasir.pelanggan.index') === 0 ? 'aria-current="page"' : '' !!}>
+                            Pelanggan
+                        </a>
                     </li>
-                    <div class="nav-item">
-                        <a class="nav-link" href="#">Transaksi</a>
-                    </div>
+                    <li
+                        class="nav-item {{ strpos(Route::currentRouteName(), 'kasir.transaksi.index') === 0 ? 'active' : '' }}">
+                        <a class="nav-link {{ strpos(Route::currentRouteName(), 'kasir.transaksi.index') === 0 ? 'active' : '' }}"
+                            href="{{ route('kasir.transaksi.index') }}" {!! strpos(Route::currentRouteName(), 'kasir.transaksi.index') === 0 ? 'aria-current="page"' : '' !!}>
+                            Transaksi
+                        </a>
+                    </li>
                 @elseif(Auth::user()->role == 'disabled')
                     <li class="nav-item active">
                         <a class="nav-link" href="{{ route('newuser.dashboard') }}">Home <span
@@ -81,13 +100,12 @@
                 @endif
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">Aksi</a>
+                        aria-haspopup="true" aria-expanded="false">{{ Auth::user()->name }}</a>
                     <div class="dropdown-menu" aria-labelledby="dropdownId">
                         <form action="{{ route('logout') }}" method="POST" style="display: inline">
                             @csrf
                             <button class="dropdown-item" type="submit">Logout</button>
                         </form>
-                        <a class="dropdown-item" href="#">Action 2</a>
                     </div>
                 </li>
             </ul>

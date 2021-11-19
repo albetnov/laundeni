@@ -11,6 +11,7 @@ class ManageCurrentUser extends Controller
 {
     public function mod_curacc(User $user, Request $request)
     {
+        abort_if($user->id != Auth::user()->id, 403);
         if ($request->mod == 'curacc') {
             $rules = [
                 'username' => 'required|string|max:56|unique:users,username,' . Auth::user()->id,
